@@ -26,3 +26,10 @@ logging:
     org.springframework.orm.jpa.JpaTransactionManager: DEBUG
     org.hibernate.sql: DEBUG
     org.hibernate.type.descriptor.sql: TRACE
+
+
+jwt:
+  secret-key: my_sns-application-2024-05-10.secret_key
+  # 30 day
+  token:
+    expired-time-ms: 2592000000
