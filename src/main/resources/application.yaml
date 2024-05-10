@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: sns
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/sns
+    username: root
+    password: root1234!!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    open-in-view: false
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+logging:
+  level:
+    org.springframework.transaction.interceptor: TRACE
+    org.springframework.jdbc.datasource.DataSourceTransactionManager: DEBUG
+    #JPA
+    org.springframework.orm.jpa.JpaTransactionManager: DEBUG
+    org.hibernate.sql: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
