@@ -7,8 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import java.sql.Timestamp;
+import java.time.Instant;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
@@ -18,7 +21,7 @@ import org.hibernate.annotations.Where;
 @Table(name = "post")
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATED post SET deleted_at = NOW() where id =?")
+@SQLDelete(sql = "UPDATE post SET deleted_at = NOW() where id =?")
 @Where(clause = "deleted_at is NULL")
 public class PostEntity {
 
@@ -44,6 +47,16 @@ public class PostEntity {
 
     @Column(name = "deleted_at")
     private Timestamp deletedAt;
+
+    @PrePersist
+    void registeredAt() {
+        this.registeredAt = Timestamp.from(Instant.now());
+    }
+
+    @PreUpdate
+    void updatedAt() {
+        this.updatedAt = Timestamp.from(Instant.now());
+    }
 
     public static PostEntity of(String title, String body, UserEntity userEntity) {
         PostEntity entity = new PostEntity();

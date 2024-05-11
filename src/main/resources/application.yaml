@@ -25,7 +25,7 @@ logging:
     #JPA
     org.springframework.orm.jpa.JpaTransactionManager: DEBUG
     org.hibernate.sql: DEBUG
-    org.hibernate.type.descriptor.sql: TRACE
+#    org.hibernate.type.descriptor.sql: TRACE
 
 
 jwt:

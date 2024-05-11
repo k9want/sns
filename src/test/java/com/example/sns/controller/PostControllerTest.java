@@ -3,6 +3,7 @@ package com.example.sns.controller;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -12,6 +13,8 @@ import com.example.sns.controller.request.PostCreateRequest;
 import com.example.sns.controller.request.PostModifyRequest;
 import com.example.sns.exception.ErrorCode;
 import com.example.sns.exception.SnsApplicationException;
+import com.example.sns.fixture.PostEntityFixture;
+import com.example.sns.model.Post;
 import com.example.sns.service.PostService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -69,6 +72,9 @@ public class PostControllerTest {
     void 포스트수정() throws Exception{
         String title = "title";
         String body = "body";
+
+        when(postService.modify(eq(title), eq(body), any(), any())).thenReturn(
+            Post.fromEntity(PostEntityFixture.get("userName", 1L, 1L)));
 
         mockMvc.perform(put("/api/v1/posts/1")
                 .contentType(MediaType.APPLICATION_JSON)
